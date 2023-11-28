@@ -38,19 +38,18 @@ jobs:
     - name: Test with Maven
       run: mvn test
 
-    - name: Cache build
-      uses: actions/cache@v3
-      with:
-        key: cached-build-${{github.sha}}
-        path: .
     # https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload jacoco results as artifact
       uses: actions/upload-artifact@v3
       with:
         name: Jacoco coverage results
         path: target/site/jacoco
-
   # Uploads dependency graph to GitHub to receive Dependabot alerts 
+  - name: Cache build
+      uses: actions/cache@v3
+      with:
+        key: cached-build-${{github.sha}}
+        path: .
    - name: Restore cached build
       uses: actions/cache@v3
       with:
